@@ -16,4 +16,8 @@ public final class NextCommandPassword extends JavaPlugin {
         }
     }
 
+    public static NextCommandPassword getInstance() {
+        return getPlugin(NextCommandPassword.class);
+    }
+
 }
