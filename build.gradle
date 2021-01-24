@@ -32,7 +32,7 @@ dependencies {
 
 shadowJar {
     archiveName("${project.name}-${project.version}.jar")
-    relocate('com.henryfabio.minecraft.configinjector', 'com.nextplugins.antigrief.libs.configinjector')
+    relocate('com.henryfabio.minecraft.configinjector', 'com.nextplugins.commandpassword.libs.configinjector')
 }
 
 bukkit {
