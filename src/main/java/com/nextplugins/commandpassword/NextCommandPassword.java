@@ -1,10 +1,12 @@
 package com.nextplugins.commandpassword;
 
+import com.nextplugins.commandpassword.configuration.ConfigurationValue;
 import com.nextplugins.commandpassword.configuration.registry.ConfigurationRegistry;
 import com.nextplugins.commandpassword.listener.registry.ListenerRegistry;
 import com.nextplugins.commandpassword.manager.CommandUserManager;
 import com.nextplugins.commandpassword.manager.LockedCommandManager;
 import lombok.Getter;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -36,6 +38,16 @@ public final class NextCommandPassword extends JavaPlugin {
 
     public static NextCommandPassword getInstance() {
         return getPlugin(NextCommandPassword.class);
+    }
+
+    private void configureBStats() {
+        if (ConfigurationValue.get(ConfigurationValue::useBStats)) {
+            int pluginId = 10102;
+            new Metrics(this, pluginId);
+            getLogger().info("Integração com o bStats configurada com sucesso.");
+        } else {
+            getLogger().info("Você desabilitou o uso do bStats, portanto, não utilizaremos dele.");
+        }
     }
 
 }

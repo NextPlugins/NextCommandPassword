@@ -18,6 +18,8 @@ repositories {
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url = 'https://oss.sonatype.org/content/groups/public/' }
 
+    maven { url = 'https://repo.codemc.org/repository/maven-public' }
+
     maven { url = 'https://jitpack.io/' }
 }
 
@@ -25,6 +27,7 @@ dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT'
 
     implementation 'com.github.HenryFabio.configuration-injector:bukkit:main-SNAPSHOT'
+    implementation 'org.bstats:bstats-bukkit:1.8'
 
     compileOnly 'org.projectlombok:lombok:1.18.16'
     annotationProcessor 'org.projectlombok:lombok:1.18.16'
@@ -33,6 +36,7 @@ dependencies {
 shadowJar {
     archiveName("${project.name}-${project.version}.jar")
     relocate('com.henryfabio.minecraft.configinjector', 'com.nextplugins.commandpassword.libs.configinjector')
+    relocate('org.bstats', 'com.nextplugins.commandpassword.libs.bstats')
 }
 
 bukkit {

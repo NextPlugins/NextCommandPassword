@@ -10,6 +10,9 @@
 #                      discord.gg/JtTN7E6A2q                       #
 
 plugin:
+  features:
+    # bStats é usado apenas para os desenvolvedores terem uma noção de quantas pessoas utilizam o plugin
+    useBStats: true
   # permissão que irá diferenciar players comuns de membros da staff
   permission: 'nextplugins.commandpassword.staff'
   # senha global, que será usada no lugar das senhas que não tiverem o campo 'password'

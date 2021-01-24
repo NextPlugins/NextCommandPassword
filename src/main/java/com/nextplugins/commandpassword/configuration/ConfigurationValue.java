@@ -35,6 +35,10 @@ public final class ConfigurationValue implements ConfigurationInjectable {
 
     @ConfigField("locked-commands") private ConfigurationSection lockedCommandsSection;
 
+    // bStats
+
+    @ConfigField("features.useBStats") private boolean useBStats;
+
     public static <T> T get(Function<ConfigurationValue, T> function) {
         return function.apply(instance);
     }
