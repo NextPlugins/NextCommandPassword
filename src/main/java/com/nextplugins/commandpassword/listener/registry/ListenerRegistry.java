@@ -14,11 +14,11 @@ public final class ListenerRegistry {
     public void register() {
         try {
             Bukkit.getPluginManager().registerEvents(
-                    new PlayerJoinListener(),
+                    new PlayerJoinListener(nextCommandPassword.getCommandUserManager()),
                     nextCommandPassword
             );
             Bukkit.getPluginManager().registerEvents(
-                    new PlayerQuitListener(),
+                    new PlayerQuitListener(nextCommandPassword.getCommandUserManager()),
                     nextCommandPassword
             );
 
