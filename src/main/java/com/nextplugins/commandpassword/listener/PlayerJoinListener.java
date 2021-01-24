@@ -14,8 +14,10 @@ public final class PlayerJoinListener implements Listener {
 
         String permission = ConfigurationValue.get(ConfigurationValue::permission);
 
+        System.out.println(permission);
+
         if (player.hasPermission(permission)) {
-            System.out.println("Testando!");
+            System.out.println("Testando - " + permission);
         }
     }
 

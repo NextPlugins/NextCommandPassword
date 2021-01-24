@@ -15,7 +15,7 @@ public final class PlayerQuitListener implements Listener {
         String permission = ConfigurationValue.get(ConfigurationValue::permission);
 
         if (player.hasPermission(permission)) {
-            System.out.println("Testando!");
+            System.out.println("Testando - " + permission);
         }
     }
 

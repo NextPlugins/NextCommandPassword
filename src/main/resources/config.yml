@@ -11,7 +11,7 @@
 
 plugin:
   # permissão que irá diferenciar players comuns de membros da staff
-  permission: ''
+  permission: 'nextplugins.commandpassword.staff'
   # senha global, que será usada no lugas das senhas que estiverem "null"
   global-password: 'nextplugins'
   # lista de comandos que terão senha
