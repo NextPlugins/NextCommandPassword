@@ -1,0 +1,7 @@
+messages:
+  login:
+    not-logged-in: '&cVocê precisa estar logado antes de executar este comando!'
+    successfully-logged-in: '&aAutenticação realizada com sucesso! Agora você pode utilizar este comando!'
+    type-the-password: '&aDigite a senha deste comando.'
+    already-logged-in: '&cVocê já está autenticado.'
+    wrong-password: '&cSenha incorreta.'

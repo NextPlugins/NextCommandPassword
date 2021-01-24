@@ -12,7 +12,7 @@
 plugin:
   # permissão que irá diferenciar players comuns de membros da staff
   permission: 'nextplugins.commandpassword.staff'
-  # senha global, que será usada no lugas das senhas que estiverem "null"
+  # senha global, que será usada no lugar das senhas que não tiverem o campo 'password'
   global-password: 'nextplugins'
   # lista de comandos que terão senha
   locked-commands:
@@ -21,10 +21,8 @@ plugin:
       # comando, coloque aqui o comando que será bloqueado
       command: '/worldedit'
       # senha, aqui a senha que será requisitada para o comando ser executado
-      password: 'null'
     command2:
       command: '/mercado'
-      password: '123'
     command3:
       command: '/gamemode'
       password: '321'

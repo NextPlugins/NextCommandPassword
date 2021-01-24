@@ -1,6 +1,7 @@
 package com.nextplugins.commandpassword.listener.registry;
 
 import com.nextplugins.commandpassword.NextCommandPassword;
+import com.nextplugins.commandpassword.listener.CommandExecuteListener;
 import com.nextplugins.commandpassword.listener.PlayerJoinListener;
 import com.nextplugins.commandpassword.listener.PlayerQuitListener;
 import lombok.Data;
@@ -14,11 +15,21 @@ public final class ListenerRegistry {
     public void register() {
         try {
             Bukkit.getPluginManager().registerEvents(
-                    new PlayerJoinListener(nextCommandPassword.getCommandUserManager()),
+                    new PlayerJoinListener(
+                            nextCommandPassword.getCommandUserManager(),
+                            nextCommandPassword.getLockedCommandManager()
+                    ),
                     nextCommandPassword
             );
             Bukkit.getPluginManager().registerEvents(
                     new PlayerQuitListener(nextCommandPassword.getCommandUserManager()),
+                    nextCommandPassword
+            );
+            Bukkit.getPluginManager().registerEvents(
+                    new CommandExecuteListener(
+                            nextCommandPassword.getCommandUserManager(),
+                            nextCommandPassword.getLockedCommandManager()
+                    ),
                     nextCommandPassword
             );
 

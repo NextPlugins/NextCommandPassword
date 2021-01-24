@@ -1,9 +1,13 @@
 package com.nextplugins.commandpassword.manager;
 
 import com.nextplugins.commandpassword.configuration.ConfigurationValue;
+import com.nextplugins.commandpassword.configuration.MessageValue;
 import com.nextplugins.commandpassword.model.LockedCommand;
+import com.nextplugins.commandpassword.model.user.CommandUser;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,10 +22,22 @@ public final class LockedCommandManager {
 
         for (String command : section.getKeys(false)) {
 
+            String globalPassword = ConfigurationValue.get(ConfigurationValue::globalPassword);
+
+            String commandLabel = section.getString(command + ".command");
+            String password;
+
+            if (section.getString(command + ".password") == null ||
+                    section.getString(command + ".password").equals("null")) {
+                password = globalPassword;
+            } else {
+                password = section.getString(command + ".password");
+            }
+
             LockedCommand lockedCommand = LockedCommand.builder()
                     .id(command)
-                    .command(section.getString(command + ".command"))
-                    .password(section.getString(command + ".password"))
+                    .command(commandLabel)
+                    .password(password)
                     .build();
 
             addCommand(lockedCommand);
@@ -45,6 +61,21 @@ public final class LockedCommandManager {
                 .filter(lockedCommand -> lockedCommand.getCommand().equalsIgnoreCase(label))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public void login(CommandUser commandUser, LockedCommand lockedCommand, String password) {
+        Player player = Bukkit.getPlayer(commandUser.getUser());
+
+        if (!commandUser.getLogins().get(lockedCommand)) {
+            if (lockedCommand.getPassword().equals(password)) {
+                commandUser.getLogins().replace(lockedCommand, true);
+                player.sendMessage(MessageValue.get(MessageValue::successfullyLogged));
+            } else {
+                player.sendMessage(MessageValue.get(MessageValue::wrongPassword));
+            }
+        } else {
+            player.sendMessage(MessageValue.get(MessageValue::alreadyLogged));
+        }
     }
 
 }
