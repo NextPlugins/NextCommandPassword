@@ -28,6 +28,8 @@ public final class NextCommandPassword extends JavaPlugin {
 
             lockedCommandManager.init();
 
+            configureBStats();
+
             getLogger().info("Plugin ativado com sucesso!");
         } catch (Throwable t) {
             t.printStackTrace();
