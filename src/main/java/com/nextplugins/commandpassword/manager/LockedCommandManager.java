@@ -58,7 +58,7 @@ public final class LockedCommandManager {
 
     public LockedCommand findCommandByLabel(String label) {
         return lockedCommandList.stream()
-                .filter(lockedCommand -> lockedCommand.getCommand().equalsIgnoreCase(label))
+                .filter(lockedCommand -> lockedCommand.getCommand().startsWith(label))
                 .findFirst()
                 .orElse(null);
     }
