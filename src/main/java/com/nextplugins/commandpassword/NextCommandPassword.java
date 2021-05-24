@@ -67,12 +67,12 @@ public final class NextCommandPassword extends JavaPlugin {
 
     private void configureBStats() {
         if (ConfigurationValue.get(ConfigurationValue::useBStats)) {
-            int pluginId = 10102;
+            final int pluginId = 10102;
+
             new Metrics(this, pluginId);
+
             textLogger.info("Integração com o bStats configurada com sucesso.");
-        } else {
-            textLogger.info("Você desabilitou o uso do bStats, portanto, não utilizaremos dele.");
-        }
+        } else textLogger.info("Você desabilitou o uso do bStats, portanto, não utilizaremos dele.");
     }
 
 }

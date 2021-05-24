@@ -4,8 +4,8 @@ messages:
     successfully-logged-in: '&aAutenticação realizada com sucesso! Agora você pode utilizar este comando!'
     type-the-password:
       - ''
-      - '&aEste comando está bloqueado!'
-      - '&aVocê tem 1 minuto para digitar a senha dele.'
+      - ' &aVocê precisa digitar a senha dele abaixo.'
+      - ' &7Para cancelar, digite &c`cancelar`'
       - ''
     already-logged-in: '&cVocê já está autenticado neste comando.'
     wrong-password: '&cSenha incorreta, operação cancelada.'

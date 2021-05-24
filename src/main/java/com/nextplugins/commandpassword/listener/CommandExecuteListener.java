@@ -33,7 +33,14 @@ public final class CommandExecuteListener implements Listener {
 
                     ChatAsk.builder()
                             .messages(MessageValue.get(MessageValue::typeThePassword))
-                            .onComplete((whoAnswered, message) -> lockedCommandManager.tryLogin(commandUser, lockedCommand, message))
+                            .onComplete((whoAnswered, message) -> {
+                                if (message.equalsIgnoreCase("cancelar")) {
+                                    whoAnswered.sendMessage(MessageValue.get(MessageValue::cancelled));
+                                    return;
+                                }
+
+                                lockedCommandManager.tryLogin(commandUser, lockedCommand, message);
+                            })
                             .build().addPlayer(player);
                 }
             }
