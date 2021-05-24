@@ -3,10 +3,10 @@ package com.nextplugins.commandpassword.listener;
 import com.nextplugins.commandpassword.configuration.ConfigurationValue;
 import com.nextplugins.commandpassword.manager.CommandUserManager;
 import com.nextplugins.commandpassword.manager.LockedCommandManager;
-import com.nextplugins.commandpassword.model.LockedCommand;
+import com.nextplugins.commandpassword.model.command.LockedCommand;
 import com.nextplugins.commandpassword.model.user.CommandUser;
 import lombok.RequiredArgsConstructor;
-import org.bukkit.entity.Player;
+import lombok.val;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -22,13 +22,12 @@ public final class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        Player player = event.getPlayer();
+        val player = event.getPlayer();
 
-        String permission = ConfigurationValue.get(ConfigurationValue::permission);
+        val permission = ConfigurationValue.get(ConfigurationValue::permission);
 
         if (player.hasPermission(permission)) {
-
-            Map<LockedCommand, Boolean> commandMap = new LinkedHashMap<>();
+            final Map<LockedCommand, Boolean> commandMap = new LinkedHashMap<>();
 
             for (LockedCommand lockedCommand : lockedCommandManager.getLockedCommandList()) {
                 commandMap.put(lockedCommand, false);
@@ -37,12 +36,10 @@ public final class PlayerJoinListener implements Listener {
             commandUserManager.addUser(
                     CommandUser.builder()
                             .user(player.getName())
-                            .logins(commandMap)
+                            .loggedInCommands(commandMap)
                             .build()
             );
-
         }
-
     }
 
 }

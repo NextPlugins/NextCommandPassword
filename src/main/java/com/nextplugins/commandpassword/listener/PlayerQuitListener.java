@@ -2,9 +2,8 @@ package com.nextplugins.commandpassword.listener;
 
 import com.nextplugins.commandpassword.configuration.ConfigurationValue;
 import com.nextplugins.commandpassword.manager.CommandUserManager;
-import com.nextplugins.commandpassword.model.user.CommandUser;
 import lombok.RequiredArgsConstructor;
-import org.bukkit.entity.Player;
+import lombok.val;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -16,20 +15,17 @@ public final class PlayerQuitListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
+        val player = event.getPlayer();
 
-        String permission = ConfigurationValue.get(ConfigurationValue::permission);
+        val permission = ConfigurationValue.get(ConfigurationValue::permission);
 
         if (player.hasPermission(permission)) {
-
-            CommandUser commandUser = commandUserManager.findUserByPlayer(player);
+            val commandUser = commandUserManager.findUserByPlayer(player);
 
             if (commandUser != null) {
                 commandUserManager.removeUser(commandUser);
             }
-
         }
-
     }
 
 }

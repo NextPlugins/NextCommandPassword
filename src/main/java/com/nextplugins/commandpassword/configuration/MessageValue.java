@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.List;
 import java.util.function.Function;
 
 @Getter
@@ -28,7 +29,9 @@ public final class MessageValue implements ConfigurationInjectable {
     @ConfigField("login.successfully-logged-in") private String successfullyLogged;
     @ConfigField("login.wrong-password") private String wrongPassword;
     @ConfigField("login.already-logged-in") private String alreadyLogged;
-    @ConfigField("login.type-the-password") private String typeThePassword;
+    @ConfigField("login.type-the-password") private List<String> typeThePassword;
+    @ConfigField("login.cancelled") private String cancelled;
+    @ConfigField("login.timed-out") private String timedOut;
 
     public static <T> T get(Function<MessageValue, T> function) {
         return function.apply(instance);

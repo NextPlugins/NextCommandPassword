@@ -2,7 +2,7 @@ package com.nextplugins.commandpassword.manager;
 
 import com.nextplugins.commandpassword.configuration.ConfigurationValue;
 import com.nextplugins.commandpassword.configuration.MessageValue;
-import com.nextplugins.commandpassword.model.LockedCommand;
+import com.nextplugins.commandpassword.model.command.LockedCommand;
 import com.nextplugins.commandpassword.model.user.CommandUser;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -17,7 +17,6 @@ public final class LockedCommandManager {
     @Getter private final List<LockedCommand> lockedCommandList = new LinkedList<>();
 
     public void init() {
-
         ConfigurationSection section = ConfigurationValue.get(ConfigurationValue::lockedCommandsSection);
 
         for (String command : section.getKeys(false)) {
@@ -28,7 +27,8 @@ public final class LockedCommandManager {
             String password;
 
             if (section.getString(command + ".password") == null ||
-                    section.getString(command + ".password").equals("null")) {
+                    section.getString(command + ".password").equals("null")
+            ) {
                 password = globalPassword;
             } else {
                 password = section.getString(command + ".password");
@@ -41,19 +41,13 @@ public final class LockedCommandManager {
                     .build();
 
             addCommand(lockedCommand);
-
         }
-
     }
 
     public void addCommand(LockedCommand lockedCommand) {
         if (!lockedCommandList.contains(lockedCommand)) {
             lockedCommandList.add(lockedCommand);
         }
-    }
-
-    public void removeCommand(LockedCommand lockedCommand) {
-        lockedCommandList.remove(lockedCommand);
     }
 
     public LockedCommand findCommandByLabel(String label) {
@@ -63,12 +57,12 @@ public final class LockedCommandManager {
                 .orElse(null);
     }
 
-    public void login(CommandUser commandUser, LockedCommand lockedCommand, String password) {
+    public void tryLogin(CommandUser commandUser, LockedCommand lockedCommand, String password) {
         Player player = Bukkit.getPlayer(commandUser.getUser());
 
-        if (!commandUser.getLogins().get(lockedCommand)) {
+        if (!commandUser.getLoggedInCommands().get(lockedCommand)) {
             if (lockedCommand.getPassword().equals(password)) {
-                commandUser.getLogins().replace(lockedCommand, true);
+                commandUser.getLoggedInCommands().replace(lockedCommand, true);
                 player.sendMessage(MessageValue.get(MessageValue::successfullyLogged));
             } else {
                 player.sendMessage(MessageValue.get(MessageValue::wrongPassword));

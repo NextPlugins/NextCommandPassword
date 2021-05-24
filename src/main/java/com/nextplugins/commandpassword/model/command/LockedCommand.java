@@ -1,4 +1,4 @@
-package com.nextplugins.commandpassword.model;
+package com.nextplugins.commandpassword.model.command;
 
 import lombok.Builder;
 import lombok.Data;

@@ -1,13 +1,10 @@
 package com.nextplugins.commandpassword.listener;
 
+import com.nextplugins.commandpassword.NextCommandPassword;
 import com.nextplugins.commandpassword.configuration.MessageValue;
-import com.nextplugins.commandpassword.manager.CommandUserManager;
-import com.nextplugins.commandpassword.manager.LockedCommandManager;
-import com.nextplugins.commandpassword.model.LockedCommand;
-import com.nextplugins.commandpassword.model.user.CommandUser;
-import com.nextplugins.commandpassword.util.ChatAsker;
+import com.nextplugins.commandpassword.util.event.ChatAsk;
 import lombok.RequiredArgsConstructor;
-import org.bukkit.entity.Player;
+import lombok.val;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -15,41 +12,32 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 @RequiredArgsConstructor
 public final class CommandExecuteListener implements Listener {
 
-    private final CommandUserManager commandUserManager;
-    private final LockedCommandManager lockedCommandManager;
+    private final NextCommandPassword plugin;
 
     @EventHandler
     public void onCommandExecute(PlayerCommandPreprocessEvent event) {
-        Player player = event.getPlayer();
+        val lockedCommandManager = plugin.getLockedCommandManager();
+        val commandUserManager = plugin.getCommandUserManager();
 
-        LockedCommand lockedCommand = lockedCommandManager.findCommandByLabel(event.getMessage());
+        val player = event.getPlayer();
+
+        val lockedCommand = lockedCommandManager.findCommandByLabel(event.getMessage());
 
         if (lockedCommand != null) {
-
-            CommandUser commandUser = commandUserManager.findUserByPlayer(player);
+            val commandUser = commandUserManager.findUserByPlayer(player);
 
             if (commandUser != null) {
-
-                if (!commandUser.getLogins().get(lockedCommand)) {
+                if (!commandUser.getLoggedInCommands().get(lockedCommand)) {
                     player.sendMessage(MessageValue.get(MessageValue::notLogged));
                     event.setCancelled(true);
 
-                    ChatAsker.builder()
-                            .messages(
-                                    "",
-                                    MessageValue.get(MessageValue::typeThePassword),
-                                    ""
-                            )
-                            .onComplete((whoAnswered, message) -> lockedCommandManager.login(commandUser, lockedCommand, message))
-                            .build()
-                            .addPlayer(player);
-
+                    ChatAsk.builder()
+                            .messages(MessageValue.get(MessageValue::typeThePassword))
+                            .onComplete((whoAnswered, message) -> lockedCommandManager.tryLogin(commandUser, lockedCommand, message))
+                            .build().addPlayer(player);
                 }
-
             }
-
         }
-
     }
 
 }

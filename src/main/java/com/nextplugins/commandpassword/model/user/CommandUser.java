@@ -1,6 +1,6 @@
 package com.nextplugins.commandpassword.model.user;
 
-import com.nextplugins.commandpassword.model.LockedCommand;
+import com.nextplugins.commandpassword.model.command.LockedCommand;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,6 +11,6 @@ import java.util.Map;
 public final class CommandUser {
 
     private final String user;
-    private Map<LockedCommand, Boolean> logins;
+    private Map<LockedCommand, Boolean> loggedInCommands;
 
 }

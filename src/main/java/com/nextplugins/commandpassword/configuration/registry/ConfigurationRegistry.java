@@ -4,13 +4,14 @@ import com.henryfabio.minecraft.configinjector.bukkit.injector.BukkitConfigurati
 import com.nextplugins.commandpassword.NextCommandPassword;
 import com.nextplugins.commandpassword.configuration.ConfigurationValue;
 import com.nextplugins.commandpassword.configuration.MessageValue;
+import lombok.val;
 
 public final class ConfigurationRegistry {
 
     public void init() {
-        NextCommandPassword plugin = NextCommandPassword.getInstance();
+        val plugin = NextCommandPassword.getInstance();
 
-        BukkitConfigurationInjector configurationInjector = new BukkitConfigurationInjector(plugin);
+        val configurationInjector = new BukkitConfigurationInjector(plugin);
 
         configurationInjector.saveDefaultConfiguration(plugin,
                 "messages.yml"

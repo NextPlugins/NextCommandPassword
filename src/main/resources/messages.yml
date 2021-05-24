@@ -2,6 +2,12 @@ messages:
   login:
     not-logged-in: '&cVocê precisa estar logado antes de executar este comando!'
     successfully-logged-in: '&aAutenticação realizada com sucesso! Agora você pode utilizar este comando!'
-    type-the-password: '&aDigite a senha deste comando.'
-    already-logged-in: '&cVocê já está autenticado.'
-    wrong-password: '&cSenha incorreta.'
+    type-the-password:
+      - ''
+      - '&aEste comando está bloqueado!'
+      - '&aVocê tem 1 minuto para digitar a senha dele.'
+      - ''
+    already-logged-in: '&cVocê já está autenticado neste comando.'
+    wrong-password: '&cSenha incorreta, operação cancelada.'
+    cancelled: '&aOperação cancelada com sucesso.'
+    timed-out: '&cO tempo para inserir a senha deste comando acabou.'

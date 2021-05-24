@@ -7,13 +7,12 @@ plugins {
 }
 
 group = 'com.nextplugins'
-version = '1.0.1'
+version = '1.0.2'
 
 tasks.build.dependsOn('shadowJar')
 
 repositories {
     mavenCentral()
-    jcenter()
 
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url = 'https://oss.sonatype.org/content/groups/public/' }
@@ -34,7 +33,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName("${project.name}-${project.version}.jar")
+    archiveName("${project.name}.jar")
     relocate('com.henryfabio.minecraft.configinjector', 'com.nextplugins.commandpassword.libs.configinjector')
     relocate('org.bstats', 'com.nextplugins.commandpassword.libs.bstats')
 }
@@ -43,4 +42,11 @@ bukkit {
     main = 'com.nextplugins.commandpassword.NextCommandPassword'
     authors = ['Henry_Fabio', 'Eike', 'Gabriel Santos', 'Yuhtin']
     website = 'https://github.com/NextPlugins'
+}
+
+compileJava {
+    options.encoding('UTF-8')
+
+    sourceCompatibility('1.8')
+    targetCompatibility('1.8')
 }
